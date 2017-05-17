@@ -17,6 +17,8 @@ var User = require('./app/models/user');
 var Message = require('./app/models/msg');
 var Channel = require('./app/models/channel');
 
+const server_port = process.env.OPENSHIFT_NODEJS_PORT || 8000
+const server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost'
 
 app.use(express.static('public')); //Для обробки статичних файлів, таких як зображення, CSS файли, та JavaScript файли
 app.use(cors()); // Enable All CORS Requests
@@ -78,19 +80,6 @@ io.sockets
 
 
  });
-
-
-
-
-
-
-
-
-
-const server_port = process.env.PORT || 8000;
-const server_ip_address = process.env.IP || 'localhost';
-
-
 
 
 
