@@ -88,7 +88,6 @@ io.sockets
 
 
 const server_port = process.env.PORT || 8000;
-// const server_ip_address = process.env.IP || 'localhost';
 
 
 

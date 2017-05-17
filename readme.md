@@ -1,4 +1,4 @@
-# ELEKS front-camp 2017
+# ELEKS front-camp 2017 VERONIKA BARANYAK chat app
 
 This is prototype of server for education purpose.
 Allows you to login and chatting with your colleagues.
@@ -8,7 +8,7 @@ Allows you to login and chatting with your colleagues.
 1. Add socket.io to your page
   * you can add it via:
      ```javascript
-        <script src="http://eleksfrontendcamp-mockapitron.rhcloud.com/socket.io/socket.io.js"></script>
+        <script src="http://https://chat93.herokuapp.com/socket.io/socket.io.js"></script>
      ```
 2. In this implementation we use JWT so it's important to send "socket.emit('authenticate', { token: YourJWT })" event after you logged in and connected with socket.io
    ```javascript
@@ -25,7 +25,7 @@ Will create new user with all fields that you pass in the request body.
 
 **Request:**
 
-[POST] http://eleksfrontendcamp-mockapitron.rhcloud.com/signup
+[POST] https://chat93.herokuapp.com/signup
 ```
   {
     "username": "your_username",
@@ -41,7 +41,7 @@ Will check if user exists in DB and send back an JWT token.
 
 **Request:**
 
-[POST] http://eleksfrontendcamp-mockapitron.rhcloud.com/login
+[POST] https://chat93.herokuapp.com/login
 ```
   {
     "username": "your_username",
@@ -71,7 +71,7 @@ Here you can get all registered users and all available info for them.
 
 **Request:**
 
-[GET] http://eleksfrontendcamp-mockapitron.rhcloud.com/users
+[GET] https://chat93.herokuapp.com/users
 
 **Response:**
 
@@ -93,7 +93,7 @@ e.g. /messages?from=1492426339568&to=1492427071894
 
 **Request:**
 
-[GET] http://eleksfrontendcamp-mockapitron.rhcloud.com/messages
+[GET] https://chat93.herokuapp.com/messages
 
 **Response:**
 
@@ -123,7 +123,7 @@ Now server support next types of messages:
 
 **Example**:
 ```javascript
-  const socket = io.connect('http://eleksfrontendcamp-mockapitron.rhcloud.com');
+  const socket = io.connect('https://chat93.herokuapp.com');
 
   socket.on('message', msg => { ... });
 
