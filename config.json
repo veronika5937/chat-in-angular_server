@@ -1,0 +1,6 @@
+{
+    
+    "mongodb_url": "mongodb://veronika5937:kaban4uk@ds129018.mlab.com:29018/chat",
+    "redis_url": "//pub-redis-19086.eu-central-1-1.1.ec2.redislabs.com:19086",
+    "jwt_secret": "I#hate_node.js!"
+}
