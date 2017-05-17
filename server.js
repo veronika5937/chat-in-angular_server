@@ -17,8 +17,8 @@ var User = require('./app/models/user');
 var Message = require('./app/models/msg');
 var Channel = require('./app/models/channel');
 
-const server_port = process.env.OPENSHIFT_NODEJS_PORT || 8000
-const server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost'
+const server_port = process.env.OPENSHIFT_NODEJS_PORT 
+const server_ip_address = process.env.OPENSHIFT_NODEJS_IP 
 
 app.use(express.static('public')); //Для обробки статичних файлів, таких як зображення, CSS файли, та JavaScript файли
 app.use(cors()); // Enable All CORS Requests
@@ -84,5 +84,5 @@ io.sockets
 
 
 const server = http.listen(server_port, server_ip_address, () => {
-  console.log(`Auth servise running on http://${server_ip_address}:${server_port}`)
+  console.log(`Auth servise running on http://${server.address().address}:${server.address().port}`)
 })
