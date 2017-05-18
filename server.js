@@ -34,19 +34,17 @@ io.sockets
     secret: config.jwt_secret,
     callback: false
   }))
+  .on('authenticated', socket => {
+    io.emit('join', {
+      user: socket.decoded_token,
+      time: Date.now()
+    })
   .on('disconnect', soket =>{
     io.emit('leave', {
       user: socket.decoded_token,
       time: Date.now()
     })
   })
-  .on('authenticated', socket => {
-    io.emit('join', {
-      user: socket.decoded_token,
-      time: Date.now()
-    })
-
-  on.
     socket
       .on('unauthorized', unauthorizedHandler)
       .on('message', MessageHandler)
