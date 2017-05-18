@@ -39,12 +39,14 @@ io.sockets
       user: socket.decoded_token,
       time: Date.now()
     })
-  .on('disconnect', soket =>{
+  .on('disconnect', () =>{
     io.emit('leave', {
-      user: socket.decoded_token,
+      // user: socket.decoded_token,
       time: Date.now()
     })
   })
+
+  on.
     socket
       .on('unauthorized', unauthorizedHandler)
       .on('message', MessageHandler)
