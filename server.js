@@ -45,8 +45,6 @@ io.sockets
       time: Date.now()
     })
   })
-
-  on.
     socket
       .on('unauthorized', unauthorizedHandler)
       .on('message', MessageHandler)
