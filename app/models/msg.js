@@ -7,3 +7,4 @@ module.exports = mongoose.model('Message', new Schema({
     time:  { type: Date, default: Date.now },
 })
 )
+
