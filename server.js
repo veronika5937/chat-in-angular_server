@@ -35,7 +35,7 @@ io.sockets
     callback: false
   }))
   .on('authenticated', socket => {
-    io.emit('join', {
+    socket.broadcast.emit('join', {
       user: socket.decoded_token,
       time: Date.now()
     })
