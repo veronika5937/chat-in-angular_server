@@ -40,16 +40,11 @@ io.sockets
       time: Date.now()
     })
     socket
-      .on('unauthorized', unauthorizedHandler)
       .on('message', MessageHandler)
-      .on('disconnect', disconnectHandler);
+      .on('disconnect', disconnectHandler)
+      .on('is typing', typingHandler)
+      .on('stop typing', stopTypingHandler)
 
-
-    function unauthorizedHandler(error) {
-      if (error.data.type == 'UnauthorizedError' || error.data.code == 'invalid_token') {
-        console.log("User's token has expired");
-      }
-    }
 
 // hendling messages
     function MessageHandler(msg) {
@@ -75,6 +70,17 @@ io.sockets
         time: Date.now()
       })
     }
+
+// hendling Typing event
+
+function typingHandler(data){
+  io.emit('typing', data.user)
+}
+
+function stopTypingHandler(data){
+  io.emit('stop typing', data.user)
+}
+
 
 
  });
