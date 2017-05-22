@@ -78,7 +78,7 @@ function typingHandler(){
 }
 
 function stopTypingHandler(){
-  io.emit('stop typing', socket.decoded_token.user)
+  io.emit('stop typing', socket.decoded_token)
 }
 
 
