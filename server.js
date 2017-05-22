@@ -74,11 +74,11 @@ io.sockets
 // hendling Typing event
 
 function typingHandler(){
-  io.emit('typing', socket.decoded_token)
+  io.broadcast.emit('typing', socket.decoded_token)
 }
 
 function stopTypingHandler(){
-  io.emit('stop typing', socket.decoded_token)
+  io.broadcast.emit('stop typing', socket.decoded_token)
 }
 
 
