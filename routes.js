@@ -39,7 +39,8 @@ router.post('/signup', (req, res) => {
         var newUser = new User({
             username: req.body.username,
             password: req.body.password,
-            email: req.body.email
+            email: req.body.email,
+            online: false
         });
         // save the user
         newUser.save(err => {
@@ -79,7 +80,6 @@ router.post('/login', (req, res) => {
                 user,
                 token,
                 tokenType: 'Bearer',
-                online: true
             })
         }
     })
