@@ -75,7 +75,6 @@ router.post('/login', (req, res) => {
             });
 
             res.status(200).json({
-                status: 200,
                 user,
                 token,
                 tokenType: 'Bearer',
