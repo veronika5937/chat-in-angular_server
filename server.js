@@ -40,8 +40,7 @@ io.sockets
     onlineUsers.push(user.username);
     io.emit('online', onlineUsers)
     socket.broadcast.emit('join', {
-      user: user,
-      time: Date.now()
+      user: user
     })
     socket
       .on('message', MessageHandler)
@@ -88,23 +87,10 @@ function typingHandler(){
 function stopTypingHandler(){
  socket.broadcast.emit('stop typing', socket.decoded_token)
 }
-
-
-
- });
-
-
-
-
-
-
-
+});
 
 
 const server_port = process.env.PORT || 8000;
-
-
-
 
 
 const server = http.listen(server_port, () => {
