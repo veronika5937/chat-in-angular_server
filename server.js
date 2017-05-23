@@ -37,7 +37,7 @@ io.sockets
   }))
   .on('authenticated', socket => {
     let user = socket.decoded_token
-    onlineUsers[user.username] = user.username;
+    onlineUsers[user.id] = user.username;
     io.emit('online', {
       users: onlineUsers
     })
