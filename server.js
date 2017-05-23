@@ -17,6 +17,7 @@ var User = require('./app/models/user');
 var Message = require('./app/models/msg');
 var Channel = require('./app/models/channel');
 
+var onlineUsers = {};
 
 app.use(express.static('public')); //Для обробки статичних файлів, таких як зображення, CSS файли, та JavaScript файли
 app.use(cors()); // Enable All CORS Requests
@@ -35,8 +36,13 @@ io.sockets
     callback: false
   }))
   .on('authenticated', socket => {
+    let user = socket.decoded_token
+    onlineUsers[user.username] = user.username;
+    io.emit('online', {
+      users: onlineUsers
+    })
     socket.broadcast.emit('join', {
-      user: socket.decoded_token,
+      user: user,
       time: Date.now()
     })
     socket
