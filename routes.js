@@ -75,7 +75,9 @@ router.post('/login', (req, res) => {
             });
 
             res.status(200).json({
-                user,
+                user:{
+                    online: true
+                },
                 token,
                 tokenType: 'Bearer',
             })
