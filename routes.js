@@ -59,16 +59,14 @@ router.post('/signup', (req, res) => {
 
 //login 
 router.post('/login', (req, res) => {
-    User.findOne({ username: req.body.username },
+    User.findOne({ username: req.body.username }, 
+        { '_id': 0, 'password': 0, '__v': 0 },
         (err, user) => {
         if (!user || err) {
             res.status(404).json({
                 status: 404,
                 message: 'User not found'
-            })
-        } else if (user.password != req.body.password) {
-            res.json({ message: 'Authentication failed. Wrong password' });
-        } else {
+            })else {
             // if user is found and password is right
             // create a token
             var token = jwt.sign(user.toObject(), config.jwt_secret, {
