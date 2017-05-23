@@ -66,7 +66,8 @@ router.post('/login', (req, res) => {
             res.status(404).json({
                 status: 404,
                 message: 'User not found'
-            })else {
+            })
+        } else {
             // if user is found and password is right
             // create a token
             var token = jwt.sign(user.toObject(), config.jwt_secret, {
