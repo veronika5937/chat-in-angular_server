@@ -60,7 +60,7 @@ router.post('/signup', (req, res) => {
 //login 
 router.post('/login', (req, res) => {
     User.findOne({ username: req.body.username }, 
-        { 'password': 0, '__v': 0 },
+        { '_id': 0, 'password': 0, '__v': 0 },
         (err, user) => {
         if (!user || err) {
             res.status(404).json({
