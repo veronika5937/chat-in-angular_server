@@ -69,6 +69,10 @@ io.sockets
 
 //leave chat
    function disconnectHandler() {
+      let user = socket.decoded_token;
+      let i = onlineUsers.indexOf(user.username);
+      onlineUsers.splice(i, 1);
+      io.emit('online', onlineUsers)
       io.emit('leave', {
         user: socket.decoded_token,
         time: Date.now()
