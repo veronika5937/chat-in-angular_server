@@ -13,6 +13,10 @@ module.exports = mongoose.model('User', new Schema({
     },
     email: {
         type: String
+    },
+    online: {
+        type: Boolean
     }
+
 })
 )
