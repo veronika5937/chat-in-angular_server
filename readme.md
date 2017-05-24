@@ -130,6 +130,8 @@ Now server support next types of messages:
   socket.on('join', msg => { ... });
 
   socket.on('leave', msg => { ... });
+
+  socket.on('online', msg => { ... });
 ```
 
 ### Data format for events:
@@ -144,7 +146,7 @@ Now server support next types of messages:
         "time": 1490172495627 // UTC timestamp in milliseconds
     }
     ```
-* `join` and `leave`
+* `leave`
     ```javascript
     {
         "user": {
@@ -152,6 +154,20 @@ Now server support next types of messages:
             ... all data that you send during signup
         },
         "time": 1490172495627 // UTC timestamp in milliseconds
+    }
+    * `join` 
+    ```javascript
+    {
+        "user": {
+            "username": "someuser@gmail.com",
+            ... all data that you send during signup
+        }
+    }
+
+     * `online` 
+    ```javascript
+    {
+        "users" = []
     }
     ```
 
