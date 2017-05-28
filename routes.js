@@ -63,10 +63,6 @@ router.post('/signup', (req, res) => {
                 })
             });
         });
-
-
-        // save the user
-
     }
 })
 
