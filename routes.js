@@ -28,7 +28,6 @@ router.get('/users', (req, res) => {
 })
 
 
-
 // registration
 router.post('/signup', (req, res) => {
     if (!req.body.username || !req.body.password) {
@@ -38,29 +37,23 @@ router.post('/signup', (req, res) => {
         });
     }
 
-    bcrypt.hash(req.body.password, null, null, function(err, hash) {
-       if(err) console.log(err)
-
-       var newUser = new User({
-                username: req.body.username,
-                password: hash,
-                email: req.body.email,
-                online: false
-            });
-            // save the user
-            newUser.save(err => {
-                if (err) {
-                    res.status(409).json({ message: 'Username already exists' });
-                    return res.send();
-                }
-                res.status(201).json({
-                    status: 201,
-                    message: 'Successful created new user'
-                })
-            })
-    // Store hash in your password DB.
-});
-  
+    var newUser = new User({
+        username: req.body.username,
+        password: hash,
+        email: req.body.email,
+        online: false
+    });
+    // save the user
+    newUser.save(err => {
+        if (err) {
+            res.status(409).json({ message: 'Username already exists' });
+            return res.send();
+        }
+        res.status(201).json({
+            status: 201,
+            message: 'Successful created new user'
+        })
+    })
 })
 
 
