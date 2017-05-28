@@ -11,6 +11,9 @@ var User = require('./app/models/user');
 var Message = require('./app/models/msg');
 var Channel = require('./app/models/channel');
 
+var bcrypt = require('bcrypt-nodejs');
+
+
 
 // main route
 router.get('/', (req, res, next) => {
@@ -35,23 +38,29 @@ router.post('/signup', (req, res) => {
             status: 400,
             message: 'Please pass name and password.'
         });
+
     } else {
-        var newUser = new User({
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email
-        });
-        // save the user
-        newUser.save(err => {
-            if (err) {
-                res.status(409).json({ message: 'Username already exists' });
-                return res.send();
-            }
-            res.status(201).json({
-                status: 201,
-                message: 'Successful created new user'
+        bcrypt.hash(req.body.password, null, null, function (err, hash) {
+            var newUser = new User({
+                username: req.body.username,
+                password: hash,
+                email: req.body.email
+            });
+            // Store hash in your password DB.
+            newUser.save(err => {
+                if (err) {
+                    res.status(409).json({ message: 'Username already exists' });
+                    return res.send();
+                }
+                res.status(201).json({
+                    status: 201,
+                    message: 'Successful created new user'
+                })
             })
-        })
+        });
+
+        // save the user
+
     }
 })
 
