@@ -36,7 +36,7 @@ router.post('/signup', (req, res) => {
             message: 'Please pass name and password.'
         });
     }
-
+    //add new user
     var newUser = new User({
         username: req.body.username,
         password: hash,
