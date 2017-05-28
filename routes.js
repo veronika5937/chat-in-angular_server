@@ -58,6 +58,7 @@ router.post('/signup', (req, res) => {
                 message: 'Successful created new user'
             })
         })
+        // Store hash in your password DB.
     });
 
 })
