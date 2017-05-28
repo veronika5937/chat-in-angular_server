@@ -155,7 +155,8 @@ Now server support next types of messages:
         },
         "time": 1490172495627 // UTC timestamp in milliseconds
     }
-    * `join` 
+     ```
+* `join` 
     ```javascript
     {
         "user": {
@@ -163,8 +164,8 @@ Now server support next types of messages:
             ... all data that you send during signup
         }
     }
-
-     * `online` 
+     ```
+ * `online` 
     ```javascript
     {
         "users" = []
