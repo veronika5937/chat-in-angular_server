@@ -36,14 +36,13 @@ router.post('/signup', (req, res) => {
             message: 'Please pass name and password.'
         });
     }
-    //add new user
+
     var newUser = new User({
         username: req.body.username,
         password: hash,
         email: req.body.email,
         online: false
     });
-    // save the user
     newUser.save(err => {
         if (err) {
             res.status(409).json({ message: 'Username already exists' });
