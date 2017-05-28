@@ -38,7 +38,7 @@ router.post('/signup', (req, res) => {
         });
     }
 
-    bcrypt.hash(req.body.password, null, null, function (err, hash) {
+    bcrypt.hash(req.body.password, null, null, (err, hash)=> {
         if (err) console.log(err)
 
         var newUser = new User({
