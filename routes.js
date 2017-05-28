@@ -11,7 +11,7 @@ var User = require('./app/models/user');
 var Message = require('./app/models/msg');
 var Channel = require('./app/models/channel');
 
-var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt');
 
 
 
@@ -40,24 +40,30 @@ router.post('/signup', (req, res) => {
         });
 
     } else {
-        bcrypt.hash(req.body.password, null, null, function (err, hash) {
-            var newUser = new User({
-                username: req.body.username,
-                password: hash,
-                email: req.body.email
-            });
-            // Store hash in your password DB.
-            newUser.save(err => {
-                if (err) {
-                    res.status(409).json({ message: 'Username already exists' });
-                    return res.send();
-                }
-                res.status(201).json({
-                    status: 201,
-                    message: 'Successful created new user'
+        const saltRounds = 10;
+        bcrypt.genSalt(saltRounds, function (err, salt) {
+            console.log(err)
+            bcrypt.hash(req.body.password, salt, function (err, hash) {
+                console.log(err)
+                var newUser = new User({
+                    username: req.body.username,
+                    password: hash,
+                    email: req.body.email
+                });
+                // Store hash in your password DB.
+                newUser.save(err => {
+                    if (err) {
+                        res.status(409).json({ message: 'Username already exists' });
+                        return res.send();
+                    }
+                    res.status(201).json({
+                        status: 201,
+                        message: 'Successful created new user'
+                    })
                 })
-            })
+            });
         });
+
 
         // save the user
 
