@@ -191,3 +191,4 @@ Now server support next types of messages:
         color: red;
     }
 </style>"# chat-server" 
+"# chat-in-angular_server" 
