@@ -45,7 +45,7 @@ router.post('/signup', (req, res) => {
         newUser.save(err => {
             if (err) {
                 res.status(409).json({ message: 'Username already exists' });
-                return res.send(); 
+                return res.send();
             }
             res.status(201).json({
                 status: 201,
@@ -58,28 +58,28 @@ router.post('/signup', (req, res) => {
 
 //login 
 router.post('/login', (req, res) => {
-    User.findOne({ username: req.body.username },(err, user) => {
-        if (!user || err) {
-            res.status(404).json({
-                status: 404,
-                message: 'User not found'
-            })
-        } else if (user.password != req.body.password) {
-            res.json({ message: 'Authentication failed. Wrong password' });
-        } else {
-            // if user is found and password is right
-            // create a token
-            var token = jwt.sign(user.toObject(), config.jwt_secret, {
-                expiresIn: 60 * 60 * 24 // expires in 24 hours
-            });
+    User.findOne({ username: req.body.username },
+        { '_id': 0, 'password': 0, '__v': 0 },
+        (err, user) => {
+            if (!user || err) {
+                res.status(404).json({
+                    status: 404,
+                    message: 'User not found'
+                })
+            } else {
+                // if user is found and password is right
+                // create a token
+                var token = jwt.sign(user.toObject(), config.jwt_secret, {
+                    expiresIn: 60 * 60 * 24 // expires in 24 hours
+                });
 
-            res.status(200).json({
-                user,
-                token,
-                tokenType: 'Bearer'
-            })
-        }
-    })
+                res.status(200).json({
+                    user,
+                    token,
+                    tokenType: 'Bearer',
+                })
+            }
+        })
 })
 
 // messages
