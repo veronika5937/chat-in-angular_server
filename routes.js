@@ -10,7 +10,7 @@ const marked = require('marked') //?
 var User = require('./app/models/user');
 var Message = require('./app/models/msg');
 var Channel = require('./app/models/channel');
-const bcrypt = require('bcrypt-nodejs');
+
 
 // main route
 router.get('/', (req, res, next) => {
@@ -35,51 +35,51 @@ router.post('/signup', (req, res) => {
             status: 400,
             message: 'Please pass name and password.'
         });
-    }
-
-    var newUser = new User({
-        username: req.body.username,
-        password: hash,
-        email: req.body.email,
-        online: false
-    });
-    newUser.save(err => {
-        if (err) {
-            res.status(409).json({ message: 'Username already exists' });
-            return res.send();
-        }
-        res.status(201).json({
-            status: 201,
-            message: 'Successful created new user'
+    } else {
+        var newUser = new User({
+            username: req.body.username,
+            password: req.body.password,
+            email: req.body.email
+        });
+        // save the user
+        newUser.save(err => {
+            if (err) {
+                res.status(409).json({ message: 'Username already exists' });
+                return res.send(); 
+            }
+            res.status(201).json({
+                status: 201,
+                message: 'Successful created new user'
+            })
         })
-    })
+    }
 })
 
 
 //login 
 router.post('/login', (req, res) => {
-    User.findOne({ username: req.body.username },
-        { '_id': 0, 'password': 0, '__v': 0 },
-        (err, user) => {
-            if (!user || err) {
-                res.status(404).json({
-                    status: 404,
-                    message: 'User not found'
-                })
-            } else {
-                // if user is found and password is right
-                // create a token
-                var token = jwt.sign(user.toObject(), config.jwt_secret, {
-                    expiresIn: 60 * 60 * 24 // expires in 24 hours
-                });
+    User.findOne({ username: req.body.username },(err, user) => {
+        if (!user || err) {
+            res.status(404).json({
+                status: 404,
+                message: 'User not found'
+            })
+        } else if (user.password != req.body.password) {
+            res.json({ message: 'Authentication failed. Wrong password' });
+        } else {
+            // if user is found and password is right
+            // create a token
+            var token = jwt.sign(user.toObject(), config.jwt_secret, {
+                expiresIn: 60 * 60 * 24 // expires in 24 hours
+            });
 
-                res.status(200).json({
-                    user,
-                    token,
-                    tokenType: 'Bearer',
-                })
-            }
-        })
+            res.status(200).json({
+                user,
+                token,
+                tokenType: 'Bearer'
+            })
+        }
+    })
 })
 
 // messages
